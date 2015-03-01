@@ -175,6 +175,8 @@
 					</li>
 					<li><a href="#contact">Contact</a>
 					</li>
+					<li><a href="http://www.webbanao.com/blog/">Blog</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -278,7 +280,7 @@
 								<img src="img/icons/5.png" alt="poster" />
 							</div>
 							<div class="service-desc">
-								<h5>Posters,Flyers and Logos</h5>
+								<h5>Print Designs</h5>
 								<p>We can design beautiful posters and flyers for any event or a great logo for your brand or company.</p>
 							</div>
 						</div>
@@ -593,8 +595,8 @@
 			</div>
 		</div>
 	</section>
-	<!--Footer-->
-	<footer>
+	<!--Footer-->  
+    <footer class="footer">
 		<nav class="navbar navbar-custom navbar-static-bottom" role="navigation">
 			<div class="container">
 				<p class="navbar-text pull-left" style="color: white;font-size: 15px;">&copy;Copyright 2014 - WebBanao.com. All rights reserved.</p>
