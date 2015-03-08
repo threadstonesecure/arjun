@@ -39,7 +39,7 @@
         }
         else if ($condition == true)
         {
-        	$sql = "INSERT INTO comment (slNo,name,email,comment,commentDate,articleNo) 
+        	$sql = "INSERT INTO wb_comment (slNo,name,email,comment,commentDate,articleNo) 
 			VALUES (NULL, \"".$commentName."\", \"".$commentEmail."\", \"".$message."\", CURRENT_TIMESTAMP,\"".$commentSlNo."\");";
 
 			if ($con->query($sql) === TRUE) {
@@ -82,7 +82,7 @@
 	{
 		$articleName = $_GET["articleName"];
 		$articleName = mysqli_real_escape_string($con,$articleName);
-		$query  = "SELECT * ". "FROM article". " WHERE articleName = '".$articleName."'";
+		$query  = "SELECT * ". "FROM wb_article". " WHERE articleName = '".$articleName."'";
 		if($query_result = mysqli_query($con,$query)){
 			$query_num_row = mysqli_num_rows($query_result);
 			if($query_num_row > 0){
@@ -95,10 +95,8 @@
 					$author =  $row["author"];
 					$convertedDate = date("M d Y", strtotime($date));
 					$slNo = $row["slNo"];
-
-
 					// fetching comments
-					$query1  = "SELECT * ". "FROM comment where articleNo = ".$slNo." order by commentDate DESC;";
+					$query1  = "SELECT * ". "FROM wb_comment where articleNo = ".$slNo.";";
 					if($query_result1 = mysqli_query($con,$query1)){
 						$query_num_row1 = mysqli_num_rows($query_result1);
 					}
@@ -115,20 +113,65 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title><?php echo $head."-".$shortDesc;?></title>
+		<meta charset="UTF-8">
+		<meta property="og:title" content="<?php echo $head."-".$shortDesc;?>" />
+		<meta property="og:type" content="image.jpeg" />
+		<meta property="og:url" content="http://www.webbanao.com/" />
+		<meta property="og:image" content="http://www.webbanao.com/android-icon-192x192.png" />
+		<meta property="og:description" content="<?php echo $head."-".$shortDesc;?>" />
+		<meta name="keywords" content="<?php echo $metaTag;?>">
+		<meta property="og:determiner" content="the" />
+		<meta property="og:locale" content="en_IN" />
+		<link rel="canonical" href="www.webbanao.com" />
+		<meta name="robots" content="index, follow">
+		
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
 		<link rel="stylesheet" href="../css/blogstyle.css">
 		<script src="js/jquery.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>	
 	</head>
 	<body>
+		<!-- facebook like script start-->
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId: '196708687162159',
+					xfbml: true,
+					version: 'v2.2'
+				});
+			};
 
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+
+		<div id="fb-root"></div>
+		<script>
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=196708687162159&version=v2.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+	<!-- facebook like script end-->
 		<!--Navigation Panel-->
 	<nav id="top-nav" class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header page-scroll">
 
 				<a class="navbar-brand" href="../blog/index.php">
-					
 					      <div class="blog-header">
 					      <img src="../img/webbanao.png" width="40px" height="20px" alt="logo">
        							 <h1 class="blog-title">The Webbanao Blog</h1>
@@ -147,13 +190,31 @@
 		</div>
 	</nav>
 
+	<div id="float-social">
 
-    <div class="container">
+			<div class="float-social-item">
+				<fb:like href="<?php echo "http://www.webbanao.com".$_SERVER["REQUEST_URI"];?>" layout="box_count" action="like" show_faces="true" share="true"></fb:like>
+			</div>
+			<div class="float-social-item"><a class="twitter-share-button" data-count="vertical" href="<?php echo "http://www.webbanao.com".$_SERVER["REQUEST_URI"];?>">Tweet</a>
+			</div>
+			<div class="float-social-item">
+				<div class="g-plusone" data-size="tall" data-href="<?php echo "http://www.webbanao.com".$_SERVER["REQUEST_URI"];?>"></div>
+			</div>
+		</div>
+		
+    <div class="container wrapper">
       <div class="row">
         <div class="col-lg-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title"><?php echo $head; ?></h2>
+            <p><span class="blog-post-title"><?php echo $head; ?></span>
+			 <?php 
+				$metaArray = explode(",",$metaTag);
+					foreach ($metaArray as &$value) {
+    					echo "<a href=\"metaSearch.php?meta=".$value."\" ><span id=\"meta\">".$value."</span></a>";
+					}
+			?>
+			  </p>
             <p class="blog-post-meta"><?php echo $convertedDate; ?> by <?php echo $author; ?></p>
 				<?php echo $article; ?>
           
@@ -161,7 +222,7 @@
         </div>
         
 		 <!-- Comments Form -->
-        <div class="well">
+        <div id="commentarea" class="well">
 			<h3>Comments:</h3>
 		<?php 
 			if($query_num_row1 > 0){
@@ -174,10 +235,10 @@
 					echo "
 					<form role=\"form\">
                 		<div class=\"form-group\">
-                			<h4>Comment by ".$name." at ".$convertedCommentDate." </h4>
-                			<p>".$comment."</p>
-						</form>
+                			<p id=\"comments\">".$comment."</p>
+							<p id=\"commentmeta\">by ".$name." at ".$convertedCommentDate." </p>	
           			</div>
+					</form>
 					";
 				}
 			} 
@@ -230,30 +291,49 @@
         
         <div class="col-md-3 col-md-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
+            <h4 id="abouttitle">About</h4>
             <p>In this blog we memebers of webbanao share our experience, tutorials, techniques and some free resources on web design and developement</p>
           </div>
           <div class="sidebar-module">
-            <h4>Social-media</h4>
+            <h4 id="mediatitle">Social-media</h4>
             <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
+             	<li><a href="https://www.facebook.com/webbanao" target="_blank">Facebook</a></li>
+			 	<li><a href="https://twitter.com/web_banao" target="_blank">Twitter</a></li>
+				<li><a href="https://plus.google.com/104917054063729004309/about" target="_blank">GooglePlus</a></li>
+				<li><a href="http://www.linkedin.com/company/web-banao" target="_blank">Linkedin</a></li>
+			  </ol>
           </div>
         </div><!-- /.blog-sidebar -->
       </div><!-- /.row -->
     </div><!-- /.container -->
-	
-	<footer>
-		<nav class="navbar navbar-inverse navbar-static-bottom" role="navigation">
+	<div class="push"></div>
+		<div class="footer" style="background-color:#374140;">
 			<div class="container">
 				<p class="navbar-text pull-left"><a href="#">Back to top</a></p>
 				<p class="navbar-text pull-right" style="color: white;font-size: 15px;">&copy;Copyright 2014 - WebBanao.com. All rights reserved.</p>
 			</div>
-		</nav>
-	</footer>	
+	</div>	
 		<script src='https://www.google.com/recaptcha/api.js'></script>
 		<?php $con->close();?>
+		
+		<!-- twitter api start-->
+		<script>
+		window.twttr = (function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0],
+				t = window.twttr || {};
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://platform.twitter.com/widgets.js";
+			fjs.parentNode.insertBefore(js, fjs);
+			t._e = [];
+			t.ready = function(f) {
+				t._e.push(f);
+			};
+			return t;
+		}(document, "script", "twitter-wjs"));
+	</script>
+	<!-- twitter api end-->
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	</body>
 </html>

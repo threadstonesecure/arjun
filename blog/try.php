@@ -23,7 +23,7 @@
 			$article = $_POST["article"];
 			$author = $_POST["author"];
 
-			$sql = "INSERT INTO article (slNo,head,articleName,metaTag,shortDesc,article,author,date) 
+			$sql = "INSERT INTO wb_article (slNo,head,articleName,metaTag,shortDesc,article,author,date) 
 			VALUES (NULL, '".$head."', '".$articleName."', '".$metaTag."', '".$shortDesc."', 
 				'".$article."', '".$author."', CURRENT_TIMESTAMP);";
 

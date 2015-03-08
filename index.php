@@ -92,17 +92,21 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 	<!-- Core JavaScript Files -->
 	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script async src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.easing.min.js"></script>
 	<script src="js/jquery.scrollTo.js"></script>
-	<script src="js/wow.min.js"></script>
+	<script aysnc src="js/wow.min.js"></script>
 	<!-- Custom Theme JavaScript -->
-	<script src="js/custom.js"></script>
+	<script async src="js/custom.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		$(document).ready(function () {
+			  $(".navbar-toggle").on("click", function () {
+				    $(this).toggleClass("active");
+			  });
+		});
+	</script>
 
 
 </head>
@@ -138,24 +142,21 @@
 			if (d.getElementById(id)) return;
 			js = d.createElement(s);
 			js.id = id;
-			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=196708687162159&version=v2.0";
+			js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=<?php echo $facebookAppId;?>&version=v2.0";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<!-- facebook like script end-->
 
 	<!--Navigation Panel-->
-	<nav id="top-nav" class="navbar navbar-custom navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header page-scroll">
-				<!--Menu toggle button for small screens-->
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-
+<!--Navigation Panel-->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+  		<div class="navbar-header">
+    		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      			<span class="icon-bar"></span>
+      			<span class="icon-bar"></span>
+      			<span class="icon-bar"></span>
+    		</button>
 				<a class="navbar-brand" href="index.html">
 					<img src="img/webbanao.png" width="60px" height="40px" alt="logo">
 				</a>
@@ -175,19 +176,25 @@
 					</li>
 					<li><a href="#contact">Contact</a>
 					</li>
-					<li><a href="http://www.webbanao.com/blog/">Blog</a>
+					<li><a href="http://www.webbanao.com/blog">Blog</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-
-	</nav>
 	<div id="float-social">
 
 		<div class="float-social-item">
 			<fb:like href="https://www.facebook.com/webbanao" layout="box_count" action="like" show_faces="true" share="true"></fb:like>
 		</div>
-		<div class="float-social-item"><a class="twitter-share-button" data-count="vertical" href="https://twitter.com/web_banao">Tweet</a>
+		<div class="float-social-item"><a class="twitter-share-button" 
+										  href="https://twitter.com/web_banao"
+										  data-count="vertical" 
+										  data-url="https://twitter.com/web_banao" 
+										  data-via="webbanao" 
+										  data-hashtags="webbano,web_designing"
+										  data-related="webbanao,ankitech,devgrv"
+										  data-counturl="http://www.webbanao.com/"
+										  data-text="We are a web desigining company.Hire us to create a unique websites for you.">Tweet</a>
 		</div>
 		<div class="float-social-item">
 			<div class="g-plusone" data-size="tall" data-href="http://www.webbanao.com"></div>
@@ -328,18 +335,59 @@
 				</div>
 			</div>
 			<div class="row row-centered section-heading">
-				<div class="col-xs-6 col-sm-3 col-md-3 col-centered">
-					<!--<div class="wow bounceInUp" data-wow-delay="0.2s">
-                <div class="team boxed-grey">
-                    <div class="inner">
-						<h5>Kumar Ankit</h5>
-                        <p class="subtitle">Engineer</p>
-                        <div class="avatar"><img src="img/team/3.jpg" alt="" class="img-responsive img-circle" /></div>
-                    </div>
-                </div>
-				</div>-->
-					<h3 class="text-center" style="margin-bottom:260px;">Coming Soon...</h3>
-				</div>
+					<div class="row">
+  						<div class="col-xs-6 col-md-3">
+    						<a href="http://www.welcomeexam.com" class="thumbnail">
+     					 		<img src="img/project/project1.jpg" alt="welcome exam">
+     					 		<span class="projectDesc">A one stop site for all question paper needs of students for exam preparation.</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3">
+    						<a href="http://www.silicon.ac.in/" class="thumbnail">
+     					 		<img src="img/project/project2.jpg" alt="silicon institute of technology">
+     					 		<span class="projectDesc">One of the premier institute in north east india and best private engineering college in odisha.</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3">
+    						<a href="http://webbanao.com/projects/childWelfare/" class="thumbnail">
+     					 		<img src="img/project/project3.jpg" alt="Child welfare">
+     					 		<span class="projectDesc">A child welfare site.</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3">
+    						<a href="#" class="thumbnail">
+     					 		<img src="img/project/project4.jpg" alt="Tech fest">
+     					 		<span class="projectDesc">Posters for techfests</span>
+    						</a>
+  						</div>
+					</div>
+
+					<div class="row">
+  						<div class="col-xs-6 col-md-3 ">
+    						<a href="#" class="thumbnail">
+     					 		<img src="img/project/project5.jpg" alt="blog">
+     					 		<span class="projectDesc">A personal blog site</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3">
+    						<a href="#" class="thumbnail">
+     					 		<img src="img/project/project6.jpg" alt="quiz">
+     					 		<span class="projectDesc">Posters for a quiz competition</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3 ">
+    						<a href="#" class="thumbnail">
+     					 		<img src="img/project/project7.jpg" alt="workshop">
+     					 		<span class="projectDesc">Posters for a workshop</span>
+    						</a>
+  						</div>
+  						<div class="col-xs-6 col-md-3 ">
+    						<a href="#" class="thumbnail">
+     					 		<img src="img/project/project8.jpg" alt="logo">
+     					 		<span class="projectDesc">Logos that we created for company</span>
+    						</a>
+  						</div>
+					</div>
 			</div>
 	</section>
 	<!--/Section: project-->
@@ -467,6 +515,19 @@
 									<img src="img/team/dev.jpg" alt="dev gourav" class="img-responsive img-circle" />
 								</div>
 
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3 col-md-3 col-centered">
+					<div class="wow bounceInUp" data-wow-delay="0.2s">
+						<div class="team boxed-grey">
+							<div class="inner">
+								<h5>Amirun Bisoyi</h5>
+								<p class="subtitle">Developer</p>
+								<div class="avatar">
+									<img src="img/team/amirun.jpg" alt="amirun bisoyi" class="img-responsive img-circle" />
+								</div>
 							</div>
 						</div>
 					</div>

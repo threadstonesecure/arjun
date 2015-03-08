@@ -7,11 +7,15 @@
 	$article = "";
 	$date = "";
 	$author = "";
-	$query  = "SELECT * ". "FROM wb_article ORDER BY date DESC";
-	if($query_result = mysqli_query($con,$query)){
-		$query_num_row = mysqli_num_rows($query_result);
+	if(isset($_GET["meta"]))
+	{
+		$meta = $_GET["meta"];
+		$meta = mysqli_real_escape_string($con,$meta);
+		$query  = "SELECT * FROM wb_article a WHERE FIND_IN_SET('".$meta."',a.metaTag)>0 ORDER BY date DESC;";
+		if($query_result = mysqli_query($con,$query)){
+			$query_num_row = mysqli_num_rows($query_result);
+		}
 	}
-	
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,13 +61,11 @@
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
 	<!-- facebook like script end-->
-
-	<div id="fb-root"></div>
 		<!--Navigation Panel-->
 	<nav id="top-nav" class="navbar navbar-inverse navbar-static-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header page-scroll">
-				<a class="navbar-brand" href="../blog/index.php">
+				<a class="navbar-brand" href="index.html">
 					<div class="blog-header">
 					    <img src="../img/webbanao.png" width="40px" height="20px" alt="logo">
        					<h1 class="blog-title">The Webbanao Blog</h1>
@@ -81,7 +83,6 @@
 			</div>
 		</div>
 	</nav>
-		
 		<div id="float-social">
 
 			<div class="float-social-item">
@@ -93,10 +94,9 @@
 				<div class="g-plusone" data-size="tall" data-href="http://www.webbanao.com"></div>
 			</div>
 		</div>
-		
-		<div class="container wrapper">
-				<div class="row">
-					<div class="col-sm-8 blog-main">
+	<div class="container">
+			<div class="row">
+				<div class="col-sm-8 blog-main">
 		<?php 
 			if($query_num_row > 0){
 				while($row = $query_result->fetch_assoc()) {
@@ -159,13 +159,12 @@
     </div><!-- /.container -->
 
         </div>
-	<div class="push"></div>
-		<div class="footer" style="background-color:#374140;">
+		<footer class="footer" style="background-color:#374140;">
 			<div class="container">
 				<p class="navbar-text pull-left"><a href="#">Back to top</a></p>
 				<p class="navbar-text pull-right" style="color: white;font-size: 15px;">&copy;Copyright 2014 - WebBanao.com. All rights reserved.</p>
 			</div>
-	</div>
+	</footer>
 	
 	<!-- twitter api start-->
 	<script>
