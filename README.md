@@ -7,3 +7,6 @@ To use the docker file run the below commands in the folder where you have thw d
 
 2.	docker run -it --rm -d -p <host port name>:8080 <image tag name>
 	eg: docker run -it --rm -d -p 8888:8080 ankitech/tomcat:1.0
+
+creating the dev branch for all the sources realted to spring development
+	
